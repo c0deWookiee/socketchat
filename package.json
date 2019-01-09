@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "webpack": "babel-node ./node_modules/webpack/bin/webpack",
-    "start": "babel-node ./node_modules/webpack-dev-server/bin/webpack-dev-server --open"
+    "start": "babel-node ./node_modules/webpack-dev-server/bin/webpack-dev-server --open",
+    "mon": "nodemon ./server/index.js"
   },
   "keywords": [],
   "author": "",
@@ -40,7 +41,6 @@
     "@types/markerclustererplus": "2.1.33",
     "chartist": "0.10.1",
     "classnames": "2.2.6",
-    "nodemon": "^1.18.9",
     "perfect-scrollbar": "1.4.0",
     "react": "16.6.3",
     "react-chartist": "0.13.1",
