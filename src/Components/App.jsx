@@ -6,7 +6,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <ul id="messages" />;
+        <ul id="messages" />
         <form action="">
           <input id="m" autoComplete="off" />
           <button>Send</button>
