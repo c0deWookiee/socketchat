@@ -33,7 +33,11 @@
     "style-loader": "0.23.1",
     "webpack": "4.26.1",
     "webpack-cli": "3.1.2",
+<<<<<<< HEAD
     "webpack-dev-server": "^3.1.14"
+=======
+    "webpack-dev-server": "3.1.14"
+>>>>>>> 96e1aadb6f2ea8db0bd17fc4720f628ca6a3b890
   },
   "dependencies": {
     "@fullpage/react-fullpage": "^0.1.10",
