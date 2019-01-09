@@ -21,7 +21,7 @@ export default class App extends Component {
       <div>
         <ul id="messages" />
         <form action="">
-          <input id="m" autoComplete="off" />
+          <input id="m" autoComplete="off" value={this.state.text} />
           <button onClick={e => this.handleSubmit(e)}>Send</button>
         </form>
       </div>
