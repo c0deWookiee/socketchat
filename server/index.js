@@ -17,6 +17,15 @@ Server.listen(8080, () => console.log("<=====LISTENING ON PORT 8080====>"));
 const io = require("socket.io")(Server);
 io.on("connection", socket => {
   console.log("<===A USER CONNECTED===>");
+
+  socket.on("click", button => {
+    console.log("a user clicked ");
+  });
+
+  socket.on("chatMessage", message => {
+    console.log("message was emitted");
+  });
+
   socket.on("disconnect", () => {
     console.log("===>A USER DISCONNECTED<===");
   });
