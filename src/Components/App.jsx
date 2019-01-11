@@ -4,45 +4,72 @@ import "../index.scss";
 import io from "socket.io-client";
 import axios from "axios";
 import Messages from "./Messages.jsx";
-const flag = 1;
 
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       text: "",
-      chatLog: []
+      chatLog: [],
+      username: null
     };
-  }
-  //componentDidUpdate(prevProps, prevState, snapshot)
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.props.chatLog.length > this.state.chatLog.length) {
-      this.setState({
-        chatLog: this.props.chatLog
+    this.socket = io("localhost:8080");
+    this.socket.on("broadcast", message => {
+      this.setState(prevState => {
+        let newState = prevState.chatLog;
+        newState.push(message);
+        return { chatLog: newState };
       });
-    }
-    console.log(`CHATLOG: ${this.state.chatLog}`);
+    });
   }
+
+  componentDidMount() {
+    let promptVal = prompt("what is your name");
+    this.setState(
+      prevState => {
+        return { username: promptVal };
+      },
+      () => {
+        console.log(this.state.username);
+      }
+    );
+  }
+
+  handleLogin = () => {
+    // let promptVal = prompt('what is your name')
+  };
 
   handleSubmit = e => {
     e.preventDefault();
     if (this.state.text.length > 0) {
-      socket.emit("click", `${this.state.text}`);
+      this.socket.emit("click", {
+        username: this.state.username,
+        message: this.state.text
+      });
     }
     this.setState({ text: "" });
   };
 
   handleChange = e => {
     //eventually will emit the user that is typing
-    socket.emit("typing");
+    this.socket.emit("typing");
     this.setState({ text: e.target.value });
   };
+
   render() {
-    return (
+    return this.state.username === null ? (
+      <div />
+    ) : (
       <div>
         {this.state.chatLog.map((item, index) => {
-          return <Messages message={item} key={index} />;
+          return (
+            <Messages
+              message={item.message}
+              key={index}
+              username={item.username}
+              client={this.state.username}
+            />
+          );
         })}
         <form action="">
           <input
