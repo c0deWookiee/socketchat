@@ -25,10 +25,11 @@ form {
     padding: 10px;
   }
 }
-#messages {
+.messages {
   list-style-type: none;
-  margin: 0;
+  margin: 12px;
   padding: 0;
+  border: 1px solid greenyellow;
 }
 #messages li {
   padding: 5px 10px;

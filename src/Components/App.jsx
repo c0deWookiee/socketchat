@@ -67,6 +67,7 @@ export default class App extends Component {
               message={item.message}
               key={index}
               username={item.username}
+              client={this.state.username}
             />
           );
         })}
