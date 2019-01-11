@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import "../index.scss";
 import io from "socket.io-client";
 import Messages from "./Messages.jsx";
+import Form from "./Form.jsx";
 
 export default class App extends Component {
   constructor(props) {
@@ -11,7 +12,7 @@ export default class App extends Component {
       text: "",
       chatLog: [],
       username: null,
-      rooms: [],
+      rooms: ["lobby", "arena", "anthony's corner"],
       room: "lobby"
     };
     this.socket = io("localhost:8080");
@@ -26,12 +27,14 @@ export default class App extends Component {
 
   componentDidMount() {
     let promptVal = prompt("what is your name");
+    let promptRoom = prompt("what is your room");
     this.setState(
       prevState => {
-        return { username: promptVal };
+        return { username: promptVal, room: promptRoom };
       },
       () => {
-        console.log(this.state.username);
+        console.log("UN", this.state.username);
+        console.log("room", this.state.room);
       }
     );
   }
@@ -63,28 +66,32 @@ export default class App extends Component {
       <div />
     ) : (
       <div>
-        {this.state.chatLog.filter((item, index) => {
-          if (this.state.room === item.room) {
+        {this.state.chatLog
+          .filter(item => {
+            if (this.state.room === item.room) {
+              return item;
+            }
+          })
+          .map((message, index) => {
             return (
               <Messages
-                message={item.message}
+                message={message.message}
                 key={index}
-                username={item.username}
+                username={message.username}
                 client={this.state.username}
-                room={item.room}
+                room={message.room}
               />
             );
-          }
-        })}
-        <form action="">
-          <input
-            id="m"
-            autoComplete="off"
-            onChange={this.handleChange}
-            value={this.state.text}
-          />
-          <button onClick={e => this.handleSubmit(e)}>Send</button>
-        </form>
+          })}
+        <div className="roomList">
+          {this.state.rooms.map((room, index) => {
+            return <div className="right">{room}</div>;
+          })}
+        </div>
+        <Form
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+        />
       </div>
     );
   }
