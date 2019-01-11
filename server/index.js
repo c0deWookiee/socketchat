@@ -19,7 +19,12 @@ io.on("connection", socket => {
   console.log("<===A USER CONNECTED===>");
 
   socket.on("click", button => {
-    console.log("a user clicked ");
+    console.log(button);
+    socket.broadcast.emit("broadcast", button);
+  });
+
+  socket.on("typing", socket => {
+    console.log("a user is typing");
   });
 
   socket.on("chatMessage", message => {
