@@ -3,21 +3,41 @@ import ReactDOM from "react-dom";
 import "../index.scss";
 import io from "socket.io-client";
 import axios from "axios";
-
+const flag = 1;
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { text: "" };
+    this.state = {
+      text: "",
+      chatLog: []
+    };
   }
+  //componentDidUpdate(prevProps, prevState, snapshot)
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.chatLog.length > this.state.chatLog.length) {
+      this.setState({
+        chatLog: prevProps.chatLog
+      });
+    }
+    console.log(`CHATLOG: ${this.state.chatLog}`);
+  }
+
   handleSubmit = e => {
     e.preventDefault();
     if (this.state.text.length > 0) {
-      socket.emit("click", `this is the message => ${this.state.text}`);
+      socket.emit("click", `${this.state.text}`);
+      this.setState(prevState => {
+        let newState = prevState.chatLog;
+        newState.push(this.state.text);
+        return { chatLog: newState };
+      });
     }
     this.setState({ text: "" });
   };
 
   handleChange = e => {
+    //eventually will emit the user that is typing
     socket.emit("typing");
     this.setState({ text: e.target.value });
   };
