@@ -30,6 +30,12 @@ form {
   margin: 12px;
   padding: 0;
   border: 1px solid greenyellow;
+  .right {
+    text-align: right;
+  }
+  .left {
+    text-align: left;
+  }
 }
 #messages li {
   padding: 5px 10px;

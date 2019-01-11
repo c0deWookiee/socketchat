@@ -1,15 +1,14 @@
-import React, { Component } from "react";
-import "index.scss";
-const Messages = props => {
-    //we need to make this a stateful and pass through whether it is a client or this.state.username for CSS alternating
+import React from "react";
+import "../index.scss";
+
+export default function Messages(props) {
   return (
     <div className="messages">
-      <div className={}>
+      <div className={props.username === props.client ? "right" : "left"}>
         <p>{props.username}</p>
         <h3>{props.message}</h3>
+        <p>{props.room}</p>
       </div>
     </div>
   );
-};
-
-export default Messages;
+}
