@@ -10,7 +10,9 @@ export default class App extends Component {
     this.state = {
       text: "",
       chatLog: [],
-      username: null
+      username: null,
+      rooms: [],
+      room: "lobby"
     };
     this.socket = io("localhost:8080");
     this.socket.on("broadcast", message => {
@@ -43,7 +45,8 @@ export default class App extends Component {
     if (this.state.text.length > 0) {
       this.socket.emit("click", {
         username: this.state.username,
-        message: this.state.text
+        message: this.state.text,
+        room: this.state.room
       });
     }
     this.setState({ text: "" });
@@ -60,15 +63,18 @@ export default class App extends Component {
       <div />
     ) : (
       <div>
-        {this.state.chatLog.map((item, index) => {
-          return (
-            <Messages
-              message={item.message}
-              key={index}
-              username={item.username}
-              client={this.state.username}
-            />
-          );
+        {this.state.chatLog.filter((item, index) => {
+          if (this.state.room === item.room) {
+            return (
+              <Messages
+                message={item.message}
+                key={index}
+                username={item.username}
+                client={this.state.username}
+                room={item.room}
+              />
+            );
+          }
         })}
         <form action="">
           <input

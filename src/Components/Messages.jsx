@@ -1,23 +1,14 @@
-import React, { Component } from "react";
-import "index.scss";
-class Messages extends Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    return (
-      <div className="messages">
-        <div
-          className={
-            this.props.username === this.props.client ? "right" : "left"
-          }
-        >
-          <p>{this.props.username}</p>
-          <h3>{this.props.message}</h3>
-        </div>
-      </div>
-    );
-  }
-}
+import React from "react";
+import "../index.scss";
 
-export default Messages;
+export default function Messages(props) {
+  return (
+    <div className="messages">
+      <div className={props.username === props.client ? "right" : "left"}>
+        <p>{props.username}</p>
+        <h3>{props.message}</h3>
+        <p>{props.room}</p>
+      </div>
+    </div>
+  );
+}

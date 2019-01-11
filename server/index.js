@@ -20,7 +20,7 @@ io.on("connection", socket => {
 
   socket.on("click", button => {
     console.log(button);
-    io.emit("broadcast", button);
+    io.emit("broadcast",button);
   });
 
   socket.on("typing", socket => {
