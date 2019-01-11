@@ -5,6 +5,7 @@ import io from "socket.io-client";
 import axios from "axios";
 import Messages from "./Messages.jsx";
 const flag = 1;
+
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -16,9 +17,9 @@ export default class App extends Component {
   //componentDidUpdate(prevProps, prevState, snapshot)
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.chatLog.length > this.state.chatLog.length) {
+    if (this.props.chatLog.length > this.state.chatLog.length) {
       this.setState({
-        chatLog: prevProps.chatLog
+        chatLog: this.props.chatLog
       });
     }
     console.log(`CHATLOG: ${this.state.chatLog}`);
@@ -28,11 +29,6 @@ export default class App extends Component {
     e.preventDefault();
     if (this.state.text.length > 0) {
       socket.emit("click", `${this.state.text}`);
-      this.setState((prevState, prevProps) => {
-        let newState = prevState.chatLog;
-        newState.push(this.state.text);
-        return { chatLog: newState };
-      });
     }
     this.setState({ text: "" });
   };
