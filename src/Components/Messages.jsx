@@ -7,9 +7,13 @@ class Messages extends Component {
   render() {
     return (
       <div className="messages">
-        <div>
-          <p>{props.username}</p>
-          <h3>{props.message}</h3>
+        <div
+          className={
+            this.props.username === this.props.client ? "right" : "left"
+          }
+        >
+          <p>{this.props.username}</p>
+          <h3>{this.props.message}</h3>
         </div>
       </div>
     );
