@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import "../index.scss";
 import io from "socket.io-client";
-import axios from "axios";
 import Messages from "./Messages.jsx";
 
 export default class App extends Component {
