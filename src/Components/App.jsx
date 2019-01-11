@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import "../index.scss";
 import io from "socket.io-client";
 import axios from "axios";
+import Messages from "./Messages.jsx";
 const flag = 1;
 export default class App extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ export default class App extends Component {
     e.preventDefault();
     if (this.state.text.length > 0) {
       socket.emit("click", `${this.state.text}`);
-      this.setState(prevState => {
+      this.setState((prevState, prevProps) => {
         let newState = prevState.chatLog;
         newState.push(this.state.text);
         return { chatLog: newState };
@@ -44,7 +45,9 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <ul id="messages" />
+        {this.state.chatLog.map((item, index) => {
+          return <Messages message={item} key={index} />;
+        })}
         <form action="">
           <input
             id="m"
