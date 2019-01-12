@@ -22,7 +22,7 @@ io.on("connection", socket => {
     //would only submit data to the socket in the previously stated room
     console.log("ROOM", room);
     console.log("message:", data);
-    io.sockets.in(room).emit("broadcast", room, data);
+    socket.to(room).emit("broadcast", room, data);
   });
 
   //doesnt exist yet

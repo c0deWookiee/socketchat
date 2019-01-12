@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 import "../index.scss";
 import io from "socket.io-client";
 import Messages from "./Messages.jsx";
@@ -36,7 +35,6 @@ export default class App extends Component {
 
   componentDidMount() {
     let promptVal = prompt("what is your name");
-    // let promptRoom = prompt("what is your room");
     this.setState(
       prevState => {
         return { username: promptVal };
@@ -51,22 +49,34 @@ export default class App extends Component {
     let newRoom = e.target.innerHTML;
     e.preventDefault();
     this.setState(
-      prevState => {
+      _ => {
+        //here we utilize async nature of setstate and only emit to the server after we've joined the room
         return { room: newRoom };
       },
-      () => {
+      _ => {
         this.socket.emit("roomClick", this.state.room);
       }
     );
   };
 
   handleSubmit = e => {
+    const { room, username, text } = this.state;
     e.preventDefault();
-    if (this.state.text.length > 0) {
-      this.socket.emit("click", this.state.room, {
-        username: this.state.username,
-        message: this.state.text,
-        room: this.state.room
+    if (this.state.text.length) {
+      this.setState(prevState => {
+        let newState = prevState.chatLog;
+        newState.push({
+          username: username,
+          message: text,
+          room: room
+        });
+        return { chatLog: newState };
+      });
+
+      this.socket.emit("click", room, {
+        username: username,
+        message: text,
+        room: room
       });
     }
     this.setState({ text: "" });
@@ -77,10 +87,6 @@ export default class App extends Component {
     this.socket.emit("typing");
     this.setState({ text: e.target.value });
   };
-
-  // clearLog = () => {
-  //   if (this.state.room === )
-  // }
 
   render() {
     return this.state.username === null ? (
