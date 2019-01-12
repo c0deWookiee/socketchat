@@ -16,9 +16,10 @@ export default class App extends Component {
       room: "lobby"
     };
     this.socket = io("localhost:8080");
-    this.socket.on("broadcast", message => {
+    this.socket.on("broadcast", (room, message) => {
       this.setState(prevState => {
         let newState = prevState.chatLog;
+        console.log("room", room, "message", message);
         newState.push(message);
         return { chatLog: newState };
       });
@@ -27,10 +28,10 @@ export default class App extends Component {
 
   componentDidMount() {
     let promptVal = prompt("what is your name");
-    let promptRoom = prompt("what is your room");
+    // let promptRoom = prompt("what is your room");
     this.setState(
       prevState => {
-        return { username: promptVal, room: promptRoom };
+        return { username: promptVal };
       },
       () => {
         console.log("UN", this.state.username);
@@ -46,10 +47,9 @@ export default class App extends Component {
   handleSubmit = e => {
     e.preventDefault();
     if (this.state.text.length > 0) {
-      this.socket.emit("click", {
+      this.socket.emit("click", this.state.room, {
         username: this.state.username,
-        message: this.state.text,
-        room: this.state.room
+        message: this.state.text
       });
     }
     this.setState({ text: "" });
@@ -66,23 +66,17 @@ export default class App extends Component {
       <div />
     ) : (
       <div>
-        {this.state.chatLog
-          .filter(item => {
-            if (this.state.room === item.room) {
-              return item;
-            }
-          })
-          .map((message, index) => {
-            return (
-              <Messages
-                message={message.message}
-                key={index}
-                username={message.username}
-                client={this.state.username}
-                room={message.room}
-              />
-            );
-          })}
+        {this.state.chatLog.map((message, index) => {
+          return (
+            <Messages
+              message={message.message}
+              key={index}
+              username={message.username}
+              client={this.state.username}
+              room={message.room}
+            />
+          );
+        })}
         <div className="roomList">
           {this.state.rooms.map((room, index) => {
             return <div className="right">{room}</div>;
@@ -91,6 +85,7 @@ export default class App extends Component {
         <Form
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
+          text={this.state.text}
         />
       </div>
     );
