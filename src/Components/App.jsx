@@ -4,6 +4,7 @@ import "../index.scss";
 import io from "socket.io-client";
 import Messages from "./Messages.jsx";
 import Form from "./Form.jsx";
+import Rooms from "./Rooms.jsx";
 
 export default class App extends Component {
   constructor(props) {
@@ -12,13 +13,20 @@ export default class App extends Component {
       text: "",
       chatLog: [],
       username: null,
-      rooms: ["lobby", "arena", "anthony's corner"],
+      rooms: [
+        "lobby",
+        "arena",
+        "anthony's corner",
+        "phamily kitchen",
+        "sports"
+      ],
       room: "lobby"
     };
     this.socket = io("localhost:8080");
     this.socket.on("broadcast", (room, message) => {
       this.setState(prevState => {
         let newState = prevState.chatLog;
+        console.log("chatlog,", this.state.chatLog);
         console.log("room", room, "message", message);
         newState.push(message);
         return { chatLog: newState };
@@ -39,9 +47,17 @@ export default class App extends Component {
       }
     );
   }
-
-  handleLogin = () => {
-    // let promptVal = prompt('what is your name')
+  roomClick = e => {
+    let newRoom = e.target.innerHTML;
+    e.preventDefault();
+    this.setState(
+      prevState => {
+        return { room: newRoom };
+      },
+      () => {
+        this.socket.emit("roomClick", this.state.room);
+      }
+    );
   };
 
   handleSubmit = e => {
@@ -49,7 +65,8 @@ export default class App extends Component {
     if (this.state.text.length > 0) {
       this.socket.emit("click", this.state.room, {
         username: this.state.username,
-        message: this.state.text
+        message: this.state.text,
+        room: this.state.room
       });
     }
     this.setState({ text: "" });
@@ -61,27 +78,31 @@ export default class App extends Component {
     this.setState({ text: e.target.value });
   };
 
+  // clearLog = () => {
+  //   if (this.state.room === )
+  // }
+
   render() {
     return this.state.username === null ? (
       <div />
     ) : (
       <div>
-        {this.state.chatLog.map((message, index) => {
-          return (
-            <Messages
-              message={message.message}
-              key={index}
-              username={message.username}
-              client={this.state.username}
-              room={message.room}
-            />
-          );
-        })}
-        <div className="roomList">
-          {this.state.rooms.map((room, index) => {
-            return <div className="right">{room}</div>;
+        {this.state.chatLog
+          .filter(item => item.room === this.state.room)
+          .map((message, index) => {
+            return (
+              <Messages
+                message={message.message}
+                key={index}
+                username={message.username}
+                client={this.state.username}
+                room={message.room}
+              />
+            );
           })}
-        </div>
+        {this.state.rooms.map((room, index) => {
+          return <Rooms room={room} index={index} roomClick={this.roomClick} />;
+        })}
         <Form
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}

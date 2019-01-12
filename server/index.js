@@ -26,9 +26,8 @@ io.on("connection", socket => {
   });
 
   //doesnt exist yet
-  socket.on("create", room => {
+  socket.on("roomClick", room => {
     //on room create that socket instance would connect ot the room
-
     console.log("ROOM", room);
     socket.join(room);
   });
