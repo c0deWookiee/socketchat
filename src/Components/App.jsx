@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 import "../index.scss";
 import io from "socket.io-client";
 import Messages from "./Messages.jsx";
 import Form from "./Form.jsx";
+import Rooms from "./Rooms.jsx";
 
 export default class App extends Component {
   constructor(props) {
@@ -12,13 +12,21 @@ export default class App extends Component {
       text: "",
       chatLog: [],
       username: null,
-      rooms: ["lobby", "arena", "anthony's corner"],
+      rooms: [
+        "lobby",
+        "arena",
+        "anthony's corner",
+        "phamily kitchen",
+        "sports"
+      ],
       room: "lobby"
     };
     this.socket = io("localhost:8080");
-    this.socket.on("broadcast", message => {
+    this.socket.on("broadcast", (room, message) => {
       this.setState(prevState => {
         let newState = prevState.chatLog;
+        console.log("chatlog,", this.state.chatLog);
+        console.log("room", room, "message", message);
         newState.push(message);
         return { chatLog: newState };
       });
@@ -27,10 +35,9 @@ export default class App extends Component {
 
   componentDidMount() {
     let promptVal = prompt("what is your name");
-    let promptRoom = prompt("what is your room");
     this.setState(
       prevState => {
-        return { username: promptVal, room: promptRoom };
+        return { username: promptVal };
       },
       () => {
         console.log("UN", this.state.username);
@@ -38,18 +45,38 @@ export default class App extends Component {
       }
     );
   }
-
-  handleLogin = () => {
-    // let promptVal = prompt('what is your name')
+  roomClick = e => {
+    let newRoom = e.target.innerHTML;
+    e.preventDefault();
+    this.setState(
+      _ => {
+        //here we utilize async nature of setstate and only emit to the server after we've joined the room
+        return { room: newRoom };
+      },
+      _ => {
+        this.socket.emit("roomClick", this.state.room);
+      }
+    );
   };
 
   handleSubmit = e => {
+    const { room, username, text } = this.state;
     e.preventDefault();
-    if (this.state.text.length > 0) {
-      this.socket.emit("click", {
-        username: this.state.username,
-        message: this.state.text,
-        room: this.state.room
+    if (this.state.text.length) {
+      this.setState(prevState => {
+        let newState = prevState.chatLog;
+        newState.push({
+          username: username,
+          message: text,
+          room: room
+        });
+        return { chatLog: newState };
+      });
+
+      this.socket.emit("click", room, {
+        username: username,
+        message: text,
+        room: room
       });
     }
     this.setState({ text: "" });
@@ -67,11 +94,7 @@ export default class App extends Component {
     ) : (
       <div>
         {this.state.chatLog
-          .filter(item => {
-            if (this.state.room === item.room) {
-              return item;
-            }
-          })
+          .filter(item => item.room === this.state.room)
           .map((message, index) => {
             return (
               <Messages
@@ -83,14 +106,13 @@ export default class App extends Component {
               />
             );
           })}
-        <div className="roomList">
-          {this.state.rooms.map((room, index) => {
-            return <div className="right">{room}</div>;
-          })}
-        </div>
+        {this.state.rooms.map((room, index) => {
+          return <Rooms room={room} index={index} roomClick={this.roomClick} />;
+        })}
         <Form
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
+          text={this.state.text}
         />
       </div>
     );
