@@ -16,20 +16,32 @@ Server.listen(8080, () => console.log("<=====LISTENING ON PORT 8080====>"));
 
 const io = require("socket.io")(Server);
 io.on("connection", socket => {
-  console.log("<===A USER CONNECTED===>");
+  console.log("<===A USER CONNECTED===>", socket.id);
   socket.join("lobby");
   socket.on("click", (room, data) => {
     //would only submit data to the socket in the previously stated room
     console.log("ROOM", room);
     console.log("message:", data);
-    socket.to(room).emit("broadcast", room, data);
+
+    socket.to(room).emit("broadcast", room, data, socket.id);
+
+    socket.on("dmMessage", data => {
+      io.to(socketid).emit(stuff);
+    });
+  });
+
+  socket.on("privateMessage", id => {
+    io.to(id).emit();
   });
 
   //doesnt exist yet
-  socket.on("roomClick", room => {
+  socket.on("roomClick", (room, password) => {
     //on room create that socket instance would connect ot the room
     console.log("ROOM", room);
-    socket.join(room);
+    if (password) {
+      socket.emit("pwCheck", data);
+    }
+    socket.join(room); //https://socket.io/docs/server-api/#socket-handshake
   });
 
   socket.on("typing", socket => {

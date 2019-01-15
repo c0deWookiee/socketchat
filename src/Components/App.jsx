@@ -4,6 +4,8 @@ import io from "socket.io-client";
 import Messages from "./Messages.jsx";
 import Form from "./Form.jsx";
 import Rooms from "./Rooms.jsx";
+import CreateRoom from "./CreateRoom.jsx";
+import DirectMessage from "./DirectMessage.jsx";
 
 export default class App extends Component {
   constructor(props) {
@@ -11,6 +13,7 @@ export default class App extends Component {
     this.state = {
       text: "",
       chatLog: [],
+      directMessageLog: [],
       username: null,
       rooms: [
         "lobby",
@@ -19,14 +22,17 @@ export default class App extends Component {
         "phamily kitchen",
         "sports"
       ],
-      room: "lobby"
+      room: "lobby",
+      directMessage: { active: false, messaging: socketid }
     };
     this.socket = io("localhost:8080");
-    this.socket.on("broadcast", (room, message) => {
+    this.socket.on("broadcast", (room, message, id) => {
       this.setState(prevState => {
         let newState = prevState.chatLog;
         console.log("chatlog,", this.state.chatLog);
         console.log("room", room, "message", message);
+        console.log("SOCKETID", id);
+        message.id = id;
         newState.push(message);
         return { chatLog: newState };
       });
@@ -45,15 +51,40 @@ export default class App extends Component {
       }
     );
   }
+
+  messageUser = id => {
+    // this.socket.emit("privateMessage", `${id}`);
+    this.setState(prevState => {
+      return { directMessage: !prevState.directMessage };
+    });
+  };
+
   roomClick = e => {
     let newRoom = e.target.innerHTML;
     e.preventDefault();
     this.setState(
       _ => {
         //here we utilize async nature of setstate and only emit to the server after we've joined the room
-        return { room: newRoom };
+        return { room: newRoom, directMessage: false };
       },
       _ => {
+        this.socket.emit("roomClick", this.state.room);
+      }
+    );
+  };
+
+  makeRoom = () => {
+    let roomPrompt = prompt("what room would you like to join");
+    let pwPrompt = prompt("create password");
+    this.setState(
+      prevState => {
+        let addedRoom = prevState.rooms;
+        addedRoom.push(roomPrompt);
+        this.socket.emit("pwCheck", pwPrompt);
+        return { rooms: addedRoom, room: roomPrompt };
+      },
+      () => {
+        console.log("ROOMS", this.state.rooms);
         this.socket.emit("roomClick", this.state.room);
       }
     );
@@ -72,13 +103,20 @@ export default class App extends Component {
         });
         return { chatLog: newState };
       });
-
-      this.socket.emit("click", room, {
-        username: username,
-        message: text,
-        room: room
-      });
+      if (!this.state.directMessage) {
+        this.socket.emit("click", room, {
+          username: username,
+          message: text,
+          room: room
+        });
+      } else {
+        this.socket.emit("dmMessage", {
+          username: username,
+          message: text
+        });
+      }
     }
+
     this.setState({ text: "" });
   };
 
@@ -91,7 +129,7 @@ export default class App extends Component {
   render() {
     return this.state.username === null ? (
       <div />
-    ) : (
+    ) : !this.state.directMessage ? (
       <div>
         {this.state.chatLog
           .filter(item => item.room === this.state.room)
@@ -103,18 +141,26 @@ export default class App extends Component {
                 username={message.username}
                 client={this.state.username}
                 room={message.room}
+                socketId={message.id}
+                privateMessage={this.messageUser}
               />
             );
           })}
         {this.state.rooms.map((room, index) => {
           return <Rooms room={room} index={index} roomClick={this.roomClick} />;
         })}
+        <CreateRoom makeRoom={this.makeRoom} />
         <Form
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
           text={this.state.text}
         />
       </div>
+    ) : (
+      <DirectMessage
+        directMessageLog={this.state.directMessageLog}
+        client={this.state.username}
+      />
     );
   }
 }
