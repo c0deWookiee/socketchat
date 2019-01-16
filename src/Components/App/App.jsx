@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import "../index.scss";
 import io from "socket.io-client";
-import Messages from "./Messages.jsx";
-import Form from "./Form.jsx";
-import Rooms from "./Rooms.jsx";
-import CreateRoom from "./CreateRoom.jsx";
-import DirectMessage from "./DirectMessage.jsx";
-import Portal from "./Portal.jsx";
-import handleSubmit from "./methods/handleSubmit.js";
+import Messages from "../Messages.jsx";
+import Form from "../Form.jsx";
+import Rooms from "../Rooms.jsx";
+import CreateRoom from "../CreateRoom.jsx";
+import DirectMessage from "../DirectMessage.jsx";
+import Portal from "../Portal.jsx";
 
 export default class App extends Component {
   constructor(props) {
@@ -28,11 +27,13 @@ export default class App extends Component {
       room: "lobby",
       directMessage: false
     };
-    this.handleSubmit = handleSubmit.bind(this);
     this.socket = io("localhost:8080");
     this.socket.on("broadcast", (room, message, id) => {
       this.setState(prevState => {
         let newState = prevState.chatLog;
+        console.log("chatlog,", this.state.chatLog);
+        console.log("room", room, "message", message);
+        console.log("SOCKETID", id);
         message.id = id;
         newState.push(message);
         return { chatLog: newState };
