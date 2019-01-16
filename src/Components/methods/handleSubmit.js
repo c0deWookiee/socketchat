@@ -1,7 +1,7 @@
 export default function(e) {
   const { room, username, text } = this.state;
   e.preventDefault();
-  if (this.state.text.length) {
+  if (this.state.text) {
     this.setState(prevState => {
       let newState = prevState.chatLog;
       newState.push({

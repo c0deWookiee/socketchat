@@ -8,6 +8,8 @@ import CreateRoom from "./CreateRoom.jsx";
 import DirectMessage from "./DirectMessage.jsx";
 import Portal from "./Portal.jsx";
 import handleSubmit from "./methods/handleSubmit.js";
+import makeRoom from "./methods/makeRoom.js";
+import roomClick from "./methods/roomClick.js";
 
 export default class App extends Component {
   constructor(props) {
@@ -28,6 +30,7 @@ export default class App extends Component {
       room: "lobby",
       directMessage: false
     };
+    this.makeRoom = makeRoom.bind(this);
     this.handleSubmit = handleSubmit.bind(this);
     this.socket = io("localhost:8080");
     this.socket.on("broadcast", (room, message, id) => {
@@ -45,11 +48,11 @@ export default class App extends Component {
     this.setState(
       prevState => {
         return { username: promptVal };
-      },
-      () => {
-        console.log("UN", this.state.username);
-        console.log("room", this.state.room);
       }
+      // () => {
+      // console.log("UN", this.state.username);
+      // console.log("room", this.state.room);
+      // }
     );
   }
   roomToggle = () => {
@@ -64,65 +67,18 @@ export default class App extends Component {
     });
   };
 
-  roomClick = e => {
-    let newRoom = e.target.innerHTML;
-    e.preventDefault();
-    this.setState(
-      _ => {
-        //here we utilize async nature of setstate and only emit to the server after we've joined the room
-        return { room: newRoom, directMessage: false };
-      },
-      _ => {
-        this.socket.emit("roomClick", this.state.room);
-      }
-    );
-  };
-
-  makeRoom = () => {
-    let roomPrompt = prompt("what room would you like to join");
-    let pwPrompt = prompt("create password");
-    this.setState(
-      prevState => {
-        let addedRoom = prevState.rooms;
-        addedRoom.push(roomPrompt);
-        this.socket.emit("pwCheck", pwPrompt);
-        return { rooms: addedRoom, room: roomPrompt };
-      },
-      () => {
-        console.log("ROOMS", this.state.rooms);
-        this.socket.emit("roomClick", this.state.room);
-      }
-    );
-  };
-
-  // handleSubmit = e => {
-  //   const { room, username, text } = this.state;
+  // roomClick = e => {
+  //   let newRoom = e.target.innerHTML;
   //   e.preventDefault();
-  //   if (this.state.text.length) {
-  //     this.setState(prevState => {
-  //       let newState = prevState.chatLog;
-  //       newState.push({
-  //         username: username,
-  //         message: text,
-  //         room: room
-  //       });
-  //       return { chatLog: newState };
-  //     });
-  //     if (!this.state.directMessage) {
-  //       this.socket.emit("click", room, {
-  //         username: username,
-  //         message: text,
-  //         room: room
-  //       });
-  //     } else {
-  //       this.socket.emit("dmMessage", {
-  //         username: username,
-  //         message: text
-  //       });
+  //   this.setState(
+  //     _ => {
+  //       //here we utilize async nature of setstate and only emit to the server after we've joined the room
+  //       return { room: newRoom, directMessage: false };
+  //     },
+  //     _ => {
+  //       this.socket.emit("roomClick", this.state.room);
   //     }
-  //   }
-
-  //   this.setState({ text: "" });
+  //   );
   // };
 
   handleChange = e => {
@@ -143,6 +99,7 @@ export default class App extends Component {
       <div />
     ) : (
       <div>
+        {roomPortal}
         {this.state.chatLog
           .filter(item => item.room === this.state.room)
           .map((message, index) => {
@@ -167,7 +124,6 @@ export default class App extends Component {
           handleSubmit={this.handleSubmit}
           text={this.state.text}
         />
-        {roomPortal}
       </div>
     );
   }

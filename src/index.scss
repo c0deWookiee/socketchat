@@ -11,21 +11,25 @@ form {
   padding: 3px;
   position: fixed;
   bottom: 0;
-  width: 100%;
+  width: 100vw;
   input {
     border: 0;
-    padding: 10px;
-    width: 90%;
-    margin-right: 0.5%;
+    padding: 1em;
+    width: 85vw;
+    height: 5vh;
   }
   button {
-    width: 9%;
+    width: 13.2vw;
+    height: 5vh;
     background: rgb(130, 224, 255);
     border: none;
-    padding: 10px;
+    margin-right: auto;
+    margin-left: auto;
   }
 }
+
 .messages {
+  position: relative;
   list-style-type: none;
   margin: 12px;
   padding: 0;
@@ -36,18 +40,20 @@ form {
   .left {
     text-align: left;
   }
-}
-#messages li {
-  padding: 5px 10px;
-}
-#messages li:nth-child(odd) {
-  background: #eee;
+  z-index: -1;
 }
 
-.roomBox {
-  position: absolute;
-  height: 100vh;
-  width: 100px;
-  background-color: dodgerblue;
+.roomWrapper {
+  position: fixed;
+  z-index: 5;
   right: 0;
+  bottom: 6.3vh;
+  height: 94vh;
+  width: 15vw;
+  .roomBox {
+    position: absolute;
+    background-color: dodgerblue;
+    height: 100%;
+    width: 100%;
+  }
 }
