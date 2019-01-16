@@ -5,9 +5,16 @@ export default function Rooms(props) {
   return (
     <div className="roomWrapper">
       <div className="roomBox">
-        {/* <p onClick={e => props.roomClick(e)}>{props.room}</p> */}
         {props.rooms.map((room, index) => {
-          return <h3 className="roomList"> {room}</h3>;
+          return (
+            <h3
+              className="roomList"
+              onClick={e => props.roomClick(e)}
+              key={index}
+            >
+              {room}
+            </h3>
+          );
         })}
       </div>
     </div>

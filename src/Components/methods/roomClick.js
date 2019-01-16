@@ -1,4 +1,4 @@
-export default function() {
+export default function(e) {
   let newRoom = e.target.innerHTML;
   e.preventDefault();
   this.setState(
