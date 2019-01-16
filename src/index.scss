@@ -43,3 +43,11 @@ form {
 #messages li:nth-child(odd) {
   background: #eee;
 }
+
+.roomBox {
+  position: absolute;
+  height: 100vh;
+  width: 100px;
+  background-color: dodgerblue;
+  right: 0;
+}
