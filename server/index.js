@@ -26,12 +26,9 @@ io.on("connection", socket => {
     socket.to(room).emit("broadcast", room, data, socket.id);
 
     socket.on("dmMessage", (id, data) => {
+      console.log("dm data =>", data);
       io.to(id).emit("privateBroadcast", data);
     });
-  });
-
-  socket.on("privateMessage", id => {
-    io.to(id).emit();
   });
 
   //doesnt exist yet

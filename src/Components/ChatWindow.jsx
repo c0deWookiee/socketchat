@@ -1,5 +1,10 @@
 import React from "react";
+import MessageEntryList from "./MessageEntryList.jsx";
 
 export default function ChatWindow(props) {
-  return <div className="chatWindow">Chat Window</div>;
+  return (
+    <div className="chatWindow">
+      <MessageEntryList chatLog={props.directMessageLog} />
+    </div>
+  );
 }

@@ -31,7 +31,7 @@ export default function(e) {
         room: room
       });
     } else {
-      this.socket.emit("dmMessage", {
+      this.socket.emit("dmMessage", this.state.socketNum, {
         username: username,
         message: text
       });

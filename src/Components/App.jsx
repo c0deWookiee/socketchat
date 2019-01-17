@@ -30,7 +30,8 @@ export default class App extends Component {
         "sports"
       ],
       room: "lobby",
-      directMessage: false
+      directMessage: false,
+      socketNum: null
     };
     this.roomClick = roomClick.bind(this);
     this.makeRoom = makeRoom.bind(this);
@@ -53,7 +54,7 @@ export default class App extends Component {
       this.setState(prevState => {
         let newDirectMessageLog = prevState.directMessageLog;
         newDirectMessageLog.push(data);
-        console.log("DML", directMessageLog);
+        console.log("DML", newDirectMessageLog);
         return { directMessageLog: newDirectMessageLog };
       });
     });
@@ -74,7 +75,7 @@ export default class App extends Component {
     // this.socket.emit("dmMessage", `${id}`);
     this.setState(
       prevState => {
-        return { directMessage: true };
+        return { directMessage: true, socketNum: id };
       },
       () => console.log("direct message status:", this.state.directMessage)
     );
@@ -96,7 +97,7 @@ export default class App extends Component {
 
     const dmView = this.state.directMessage ? (
       <Portal portal="chatPortal">
-        <ChatWindow />
+        <ChatWindow directMessageLog={this.state.directMessageLog} />
       </Portal>
     ) : (
       <div />
@@ -114,6 +115,7 @@ export default class App extends Component {
           currRoom={this.state.room}
         />
         <CreateRoom makeRoom={this.makeRoom} />
+        {dmView}
         <Form
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
