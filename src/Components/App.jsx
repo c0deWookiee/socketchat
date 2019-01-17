@@ -11,6 +11,7 @@ import handleSubmit from "./methods/handleSubmit.js";
 import makeRoom from "./methods/makeRoom.js";
 import roomClick from "./methods/roomClick.js";
 import MessageEntryList from "./MessageEntryList.jsx";
+import ChatWindow from "./ChatWindow.jsx";
 
 export default class App extends Component {
   constructor(props) {
@@ -35,12 +36,25 @@ export default class App extends Component {
     this.makeRoom = makeRoom.bind(this);
     this.handleSubmit = handleSubmit.bind(this);
     this.socket = io("localhost:8080");
+
+    //General chat log
     this.socket.on("broadcast", (room, message, id) => {
       this.setState(prevState => {
         let newState = prevState.chatLog;
         message.id = id;
         newState.push(message);
+        console.log("ID", id);
         return { chatLog: newState };
+      });
+    });
+
+    //DM's
+    this.socket.on("privateBroadcast", data => {
+      this.setState(prevState => {
+        let newDirectMessageLog = prevState.directMessageLog;
+        newDirectMessageLog.push(data);
+        console.log("DML", directMessageLog);
+        return { directMessageLog: newDirectMessageLog };
       });
     });
   }
@@ -57,10 +71,13 @@ export default class App extends Component {
     });
   };
   messageUser = id => {
-    // this.socket.emit("privateMessage", `${id}`);
-    this.setState(prevState => {
-      return { directMessage: !prevState.directMessage };
-    });
+    // this.socket.emit("dmMessage", `${id}`);
+    this.setState(
+      prevState => {
+        return { directMessage: true };
+      },
+      () => console.log("direct message status:", this.state.directMessage)
+    );
   };
 
   handleChange = e => {
@@ -90,6 +107,7 @@ export default class App extends Component {
       <div>
         {roomPortal}
         <MessageEntryList
+          private={true}
           chatLog={this.state.chatLog}
           client={this.state.username}
           privateMessage={this.messageUser}

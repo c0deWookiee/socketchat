@@ -1,16 +1,29 @@
 export default function(e) {
   const { room, username, text } = this.state;
   e.preventDefault();
+
   if (this.state.text) {
-    this.setState(prevState => {
-      let newState = prevState.chatLog;
-      newState.push({
-        username: username,
-        message: text,
-        room: room
+    if (!this.state.directMessage) {
+      this.setState(prevState => {
+        let newState = prevState.chatLog;
+        newState.push({
+          username: username,
+          message: text,
+          room: room
+        });
+        return { chatLog: newState };
       });
-      return { chatLog: newState };
-    });
+    } else {
+      this.setState(prevState => {
+        let newState = prevState.directMessageLog;
+        newState.push({
+          username: username,
+          message: text
+        });
+        return { directMessageLog: newState };
+      });
+    }
+
     if (!this.state.directMessage) {
       this.socket.emit("click", room, {
         username: username,

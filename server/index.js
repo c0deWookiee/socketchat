@@ -25,8 +25,8 @@ io.on("connection", socket => {
 
     socket.to(room).emit("broadcast", room, data, socket.id);
 
-    socket.on("dmMessage", data => {
-      io.to(socketid).emit(stuff);
+    socket.on("dmMessage", (id, data) => {
+      io.to(id).emit("privateBroadcast", data);
     });
   });
 
