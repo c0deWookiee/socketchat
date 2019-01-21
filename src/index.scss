@@ -5,6 +5,7 @@
 }
 body {
   font: 13px Helvetica, Arial;
+  background: #3a3e4a;
 }
 form {
   background: #000;
@@ -30,10 +31,12 @@ form {
 
 .messages {
   position: relative;
+  border-radius: 15px;
   list-style-type: none;
   margin: 12px;
   padding: 0;
-  border: 1px solid greenyellow;
+  border: 1px solid #e5e5e5;
+  background-color: #e5e5e5;
   width: 50vw;
   margin-left: 25vw;
   margin-right: 25vw;
