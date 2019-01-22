@@ -12,10 +12,6 @@ export default class CreateRoom extends Component {
   render() {
     return (
       <div>
-        {/* <form>
-          <input type="text" />
-        </form> */}
-
         <button onClick={() => this.props.makeRoom()}>Create Room</button>
       </div>
     );

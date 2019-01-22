@@ -5,6 +5,7 @@ const Form = props => {
     <div>
       <form action="">
         <textarea
+          placeholder="Type your message here..."
           id="m"
           autoComplete="off"
           onChange={e => props.handleChange(e)}
