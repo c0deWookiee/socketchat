@@ -36,9 +36,13 @@ form {
   margin-left: 25vw;
   margin-right: 25vw;
   border-radius: 15px;
+  .right {
+    text-align: right;
+  }
 }
 
 .text {
+  text-align: left !important;
   word-break: break-all;
   display: flex;
   flex-wrap: wrap;
