@@ -63,11 +63,11 @@ export default class App extends Component {
   }
 
   // scrollToBottom = () => {
-  //   window.HTMLElement.prototype.scrollIntoView = function() {};
+  //   window.scrollTo(0, this.messagesEnd.offsetTop);
   // };
 
   // componentDidUpdate() {
-  //   this.messagesEnd.current.focus();
+  //   this.scrollToBottom();
   // }
 
   componentDidMount() {
@@ -117,6 +117,7 @@ export default class App extends Component {
     ) : (
       <div>
         {roomPortal}
+        {/* <div ref={this.messagesEnd}> */}
         <MessageEntryList
           private={true}
           chatLog={this.state.chatLog}
@@ -124,7 +125,7 @@ export default class App extends Component {
           privateMessage={this.messageUser}
           currRoom={this.state.room}
         />
-        {/* <div ref={this.messagesEnd} /> */}
+        {/* </div> */}
         <CreateRoom makeRoom={this.makeRoom} />
         {dmView}
         <Form

@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 body {
-  font: 18px Helvetica, Arial;
+  font: 30px Helvetica, Arial;
   background: #3a3e4a;
 }
 form {
@@ -43,8 +43,9 @@ form {
   max-width: 40vw;
   margin-left: 25vw;
   margin-right: 25vw;
+  box-shadow: 1px 1px black, 2px 2px black, 5px 5px black;
   &:hover {
-    background-color: #c9c9c9;
+    transform: translateX(-10px) scale(1.1);
   }
   .right {
     text-align: left;
@@ -52,7 +53,7 @@ form {
     padding-left: 30px;
   }
   .username {
-    font-size: 20px;
+    font-size: 18px;
     opacity: 0.8;
     text-decoration: underline;
   }
