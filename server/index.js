@@ -17,6 +17,7 @@ Server.listen(8080, () => console.log("<=====LISTENING ON PORT 8080====>"));
 const io = require("socket.io")(Server);
 io.on("connection", socket => {
   console.log("<===A USER CONNECTED===>", socket.id);
+  
   socket.join("lobby");
   socket.on("click", (room, data) => {
     //would only submit data to the socket in the previously stated room

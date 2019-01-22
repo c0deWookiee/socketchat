@@ -7,7 +7,7 @@ export default function Messages(props) {
     <div className="messages">
       <div className={props.username === props.client ? "right" : "left"}>
         <p onClick={() => props.privateMessage(props.id)}>{props.username}</p>
-        <h3>{props.message}</h3>
+        <h3 className="text">{props.message}</h3>
         <p>{props.room}</p>
       </div>
     </div>
