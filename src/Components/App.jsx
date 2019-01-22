@@ -23,13 +23,13 @@ export default class App extends Component {
       directMessageLog: [],
       username: null,
       rooms: [
-        "lobby",
-        "arena",
-        "anthony's corner",
-        "phamily kitchen",
-        "sports"
+        "Lobby",
+        "Arena",
+        "Anthony's Corner",
+        "Phamily Kitchen",
+        "Sports"
       ],
-      room: "lobby",
+      room: "Lobby",
       directMessage: false,
       socketNum: null
     };

@@ -12,9 +12,9 @@ export default class CreateRoom extends Component {
   render() {
     return (
       <div>
-        <form>
+        {/* <form>
           <input type="text" />
-        </form>
+        </form> */}
 
         <button onClick={() => this.props.makeRoom()}>Create Room</button>
       </div>

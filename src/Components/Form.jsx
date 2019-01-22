@@ -4,7 +4,7 @@ const Form = props => {
   return (
     <div>
       <form action="">
-        <input
+        <textarea
           id="m"
           autoComplete="off"
           onChange={e => props.handleChange(e)}
