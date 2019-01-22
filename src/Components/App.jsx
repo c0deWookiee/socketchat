@@ -33,9 +33,11 @@ export default class App extends Component {
       directMessage: false,
       socketNum: null
     };
+    // this.messagesEnd = React.createRef();
     this.roomClick = roomClick.bind(this);
     this.makeRoom = makeRoom.bind(this);
     this.handleSubmit = handleSubmit.bind(this);
+    // this.scrollToBottom = this.scrollToBottom.bind(this);
     this.socket = io("localhost:8080");
 
     //General chat log
@@ -59,6 +61,14 @@ export default class App extends Component {
       });
     });
   }
+
+  // scrollToBottom = () => {
+  //   window.HTMLElement.prototype.scrollIntoView = function() {};
+  // };
+
+  // componentDidUpdate() {
+  //   this.messagesEnd.current.focus();
+  // }
 
   componentDidMount() {
     let promptVal = prompt("what is your name");
@@ -114,6 +124,7 @@ export default class App extends Component {
           privateMessage={this.messageUser}
           currRoom={this.state.room}
         />
+        {/* <div ref={this.messagesEnd} /> */}
         <CreateRoom makeRoom={this.makeRoom} />
         {dmView}
         <Form

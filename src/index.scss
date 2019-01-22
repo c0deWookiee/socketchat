@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 body {
-  font: 13px Helvetica, Arial;
+  font: 18px Helvetica, Arial;
   background: #3a3e4a;
 }
 form {
@@ -13,6 +13,7 @@ form {
   position: fixed;
   bottom: 0;
   width: 100vw;
+  z-index: 2;
   input {
     border: 0;
     padding: 1em;
@@ -36,16 +37,19 @@ form {
   border-radius: 15px;
   list-style-type: none;
   margin: 12px;
-  padding: 0;
-  border: 1px solid #e5e5e5;
+  padding: 1vh;
   background-color: #e5e5e5;
   width: fit-content;
-  max-width: 50vw;
+  max-width: 40vw;
   margin-left: 25vw;
   margin-right: 25vw;
+  &:hover {
+    background-color: #c9c9c9;
+  }
   .right {
     text-align: left;
     float: right;
+    padding-left: 30px;
   }
   .username {
     font-size: 20px;
@@ -55,10 +59,12 @@ form {
   .left {
     text-align: left;
     float: left;
+    border-left: 10px solid #da7e90;
     .username {
-      font-size: 20px;
+      font-size: 24px;
       opacity: 0.8;
       text-decoration: underline;
+      color: #da7e90;
     }
   }
   z-index: 1;
@@ -73,6 +79,14 @@ form {
 .message {
   float: left;
   text-align: left;
+  max-width: 40vw;
+  width: fit-content;
+  min-width: 20vw;
+}
+
+.room-message {
+  position: relative;
+  font-size: 14px;
 }
 
 .roomWrapper {
