@@ -37,7 +37,7 @@ export default class App extends Component {
     this.roomClick = roomClick.bind(this);
     this.makeRoom = makeRoom.bind(this);
     this.handleSubmit = handleSubmit.bind(this);
-    // this.scrollToBottom = this.scrollToBottom.bind(this);
+    this.scrollToBottom = this.scrollToBottom.bind(this);
     this.socket = io("localhost:8080");
 
     //General chat log
@@ -62,9 +62,9 @@ export default class App extends Component {
     });
   }
 
-  // scrollToBottom = () => {
-  //   window.scrollTo(0, this.messagesEnd.offsetTop);
-  // };
+  scrollToBottom = () => {
+    window.scrollBy(0, 100);
+  };
 
   // componentDidUpdate() {
   //   this.scrollToBottom();
