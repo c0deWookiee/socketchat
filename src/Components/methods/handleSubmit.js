@@ -43,5 +43,4 @@ export default function(e) {
   }
 
   this.setState({ text: "" });
-  // this.scrollToBottom();
 }

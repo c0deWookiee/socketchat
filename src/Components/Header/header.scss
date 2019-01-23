@@ -1,0 +1,19 @@
+.header-container {
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  justify-content: space-around;
+  background: rgb(0, 119, 181);
+  top: 0;
+  height: 10vh;
+  z-index: 2;
+  .showRoom-btn {
+    font-size: 18px;
+    height: 5vh;
+  }
+  .createRoom-btn {
+    font-size: 18px;
+    height: 5vh;
+  }
+}
