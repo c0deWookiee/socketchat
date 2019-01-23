@@ -23,19 +23,21 @@ export default class App extends Component {
       directMessageLog: [],
       username: null,
       rooms: [
-        "lobby",
-        "arena",
-        "anthony's corner",
-        "phamily kitchen",
-        "sports"
+        "Lobby",
+        "Arena",
+        "Anthony's Corner",
+        "Phamily Kitchen",
+        "Sports"
       ],
-      room: "lobby",
+      room: "Lobby",
       directMessage: false,
       socketNum: null
     };
+    // this.messagesEnd = React.createRef();
     this.roomClick = roomClick.bind(this);
     this.makeRoom = makeRoom.bind(this);
     this.handleSubmit = handleSubmit.bind(this);
+    // this.scrollToBottom = this.scrollToBottom.bind(this);
     this.socket = io("localhost:8080");
 
     //General chat log
@@ -59,6 +61,14 @@ export default class App extends Component {
       });
     });
   }
+
+  // scrollToBottom = () => {
+  //   window.scrollBy(0, 100);
+  // };
+
+  // componentDidUpdate() {
+  //   this.scrollToBottom();
+  // }
 
   componentDidMount() {
     let promptVal = prompt("what is your name");
@@ -107,13 +117,16 @@ export default class App extends Component {
     ) : (
       <div>
         {roomPortal}
+        {/* <div ref={this.messagesEnd}> */}
         <MessageEntryList
           private={true}
+          username={this.state.username}
           chatLog={this.state.chatLog}
           client={this.state.username}
           privateMessage={this.messageUser}
           currRoom={this.state.room}
         />
+        {/* </div> */}
         <CreateRoom makeRoom={this.makeRoom} />
         {dmView}
         <Form
