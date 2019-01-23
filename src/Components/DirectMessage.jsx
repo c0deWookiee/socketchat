@@ -1,5 +1,5 @@
 import React from "react";
-import messages from "./Messages.jsx";
+import messages from "./Messages/Messages.jsx";
 import "index.scss";
 
 export default function DirectMessage(props) {

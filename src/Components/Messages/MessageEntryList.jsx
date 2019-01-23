@@ -1,5 +1,6 @@
 import React from "react";
 import Messages from "./Messages.jsx";
+import "./Messages.scss";
 
 export default function(props) {
   if (props.chatLog) {

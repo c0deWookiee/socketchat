@@ -1,6 +1,6 @@
 import React from "react";
-import DirectMessage from "./DirectMessage.jsx";
-import "../index.scss";
+import DirectMessage from "../DirectMessage.jsx";
+import "./Messages.scss";
 
 export default function Messages(props) {
   let showUsername =
@@ -13,13 +13,6 @@ export default function Messages(props) {
     );
 
   return (
-<<<<<<< HEAD
-    <div className="messages">
-      <div className={props.username === props.client ? "right" : "left"}>
-        <p onClick={() => props.privateMessage(props.id)}>{props.username}</p>
-        <h3 className="text">{props.message}</h3>
-        <p>{props.room}</p>
-=======
     <div className="message">
       <div>
         {showUsername}
@@ -27,7 +20,6 @@ export default function Messages(props) {
           {props.message}
         </h3>
         <p className="room-message">{props.room}</p>
->>>>>>> f70f9aed1120021d6e5d900d2e360cb2dcdc1202
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import MessageEntryList from "./MessageEntryList.jsx";
+import MessageEntryList from "./Messages/MessageEntryList.jsx";
 
 export default function ChatWindow(props) {
   return (

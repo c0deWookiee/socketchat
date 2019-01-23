@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import "../index.scss";
 import io from "socket.io-client";
-import Messages from "./Messages.jsx";
+
 import Form from "./Form.jsx";
-import Rooms from "./Rooms.jsx";
+import Rooms from "./rooms/Rooms.jsx";
 import CreateRoom from "./CreateRoom.jsx";
 import DirectMessage from "./DirectMessage.jsx";
 import Portal from "./Portal.jsx";
 import handleSubmit from "./methods/handleSubmit.js";
 import makeRoom from "./methods/makeRoom.js";
 import roomClick from "./methods/roomClick.js";
-import MessageEntryList from "./MessageEntryList.jsx";
+import MessageEntryList from "./Messages/MessageEntryList.jsx";
 import ChatWindow from "./ChatWindow.jsx";
 
 export default class App extends Component {
