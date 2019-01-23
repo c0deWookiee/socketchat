@@ -2,9 +2,10 @@ import React from "react";
 
 const Form = props => {
   return (
-    <div>
+    <div className="form-container">
       <form action="">
-        <input
+        <textarea
+          placeholder="Type your message here..."
           id="m"
           autoComplete="off"
           onChange={e => props.handleChange(e)}

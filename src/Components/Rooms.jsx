@@ -5,6 +5,7 @@ export default function Rooms(props) {
   return (
     <div className="roomWrapper">
       <div className="roomBox">
+        Available Rooms
         {props.rooms.map((room, index) => {
           return (
             <h3

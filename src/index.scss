@@ -1,101 +1,172 @@
 @font-face {
-  font-family: "myFont";
+  font-family: DanielsFont;
   src: url("./font/InputMonoCondensed-ExtraLight.ttf") format("TrueType");
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  font-family: "myFont";
-  background: #3a3e4a;
+  font-family: DanielsFont;
+  background: #eaeaea;
 }
+
 form {
-  background: #000;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background: white;
   padding: 3px;
   position: fixed;
   bottom: 0;
-  width: 100vw;
-  input {
+  width: 60vw;
+  z-index: 2;
+  textarea {
+    display: flex;
+    position: relative;
     border: 0;
-    padding: 1em;
     width: 85vw;
-    height: 5vh;
+    height: 12vh;
+    font-size: 18px;
+    resize: none;
+    user-select: none;
+    border: rgb(0, 119, 181);
+    outline: none;
+    &:focus {
+      animation: drawTopBorder 0.2s forwards;
+    }
   }
   button {
     width: 13.2vw;
-    height: 5vh;
-    background: rgb(130, 224, 255);
+    height: 10vh;
+    background: rgb(0, 119, 181);
     border: none;
+    color: white;
+    font-size: 18px;
     margin-right: auto;
     margin-left: auto;
+    &:hover {
+      cursor: pointer;
+      animation: sendShadow 0.2s forwards;
+    }
   }
 }
-
-.messages {
+.form-container {
   display: flex;
-  flex-wrap: wrap;
-  z-index: 1;
-  margin-left: 25vw;
-  margin-right: 25vw;
-  border-radius: 15px;
-  .right {
-    text-align: right;
-  }
+  justify-content: center;
 }
 
-.text {
-  text-align: left !important;
-  word-break: break-all;
+.message-log {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
   width: 50vw;
-  background: beige;
+  margin-right: 25vw;
+  margin-left: 25vw;
+  .right-message {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .left-message {
+    display: flex;
+    justify-content: flex-start;
+  }
 }
 
-// .messages {
-//   display: flex;
-//   flex-wrap: wrap;
-//   position: relative;
-//   border-radius: 15px;
-//   list-style-type: none;
-//   margin: 12px;
-//   padding: 0;
-//   border: 1px solid #e5e5e5;
-//   background-color: #e5e5e5;
-//   width: 50vw;
-//   margin-left: 25vw;
-//   margin-right: 25vw;
-//   .right {
-//     display: flex;
-//     justify-content: flex-end;
-//   }
-//   .left {
-//     display: flex;
-//     justify-content: flex-start;
-//   }
-//   z-index: 1;
-// }
+.message {
+  position: relative;
+  word-wrap: break-word;
+  border-radius: 15px;
+  margin: 12px;
+  padding: 1vh;
+  background-color: white;
+  width: fit-content;
+  max-width: 40vw;
+  box-shadow: 1px 1px black, 2px 2px black, 5px 5px black;
+  white-space: pre-wrap;
+  &:hover {
+    transform: translateX(-10px) scale(1.1);
+  }
+  .username {
+    font-size: 18px;
+    text-decoration: underline;
+    font-weight: bold;
+    color: rgb(0, 119, 181);
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .message-text {
+    max-width: 30vw;
+    width: fit-content;
+    min-width: 20vw;
+    padding: 1vh;
+  }
+  z-index: 1;
+}
 
-// .textMessages {
-//   display: flex;
-//   flex-wrap: wrap;
-//   position: relative;
-// }
-// .roomWrapper {
-//   position: fixed;
-//   z-index: 5;
-//   right: 0;
-//   bottom: 6.3vh;
-//   height: 94vh;
-//   width: 15vw;
-//   .roomBox {
-//     position: absolute;
-//     background-color: dodgerblue;
-//     height: 100%;
-//     width: 100%;
-//   }
-// }
+.room-message {
+  position: relative;
+  font-size: 14px;
+}
+
+.roomWrapper {
+  position: fixed;
+  z-index: 5;
+  right: 0;
+  top: 0;
+  bottom: 6.3vh;
+  max-height: 80vh;
+  width: 15vw;
+  .roomBox {
+    position: absolute;
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    :nth-child(even) {
+      background: white;
+    }
+    :nth-child(odd) {
+      background: #ccc;
+    }
+  }
+}
+
+.roomList {
+  margin: auto;
+  padding-left: 10px;
+  border-bottom: 2px solid #ccc;
+  align-items: center;
+}
 
 .chatWindow {
   height: 50vh;
   width: 25vw;
-  background: dodgerblue;
+  background: #e5e5e5;
+}
+
+@keyframes drawTopBorder {
+  0% {
+    border-top: 0px transparent;
+    border-bottom: 0px transparent;
+    border-left: 0px transparent;
+  }
+  100% {
+    border-top: 5px solid rgb(0, 119, 181);
+    border-bottom: 5px solid rgb(0, 119, 181);
+    border-left: 5px solid rgb(0, 119, 181);
+  }
+}
+
+@keyframes sendShadow {
+  0% {
+    box-shadow: 0 0 0 0;
+  }
+
+  100% {
+    box-shadow: 10px 10px 0 dodgerblue;
+  }
 }
