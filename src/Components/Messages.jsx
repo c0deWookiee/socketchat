@@ -14,7 +14,7 @@ export default function Messages(props) {
 
   return (
     <div className="message">
-      <div className={props.username === props.client ? "right" : "left"}>
+      <div>
         {showUsername}
         <h3 div className="message-text">
           {props.message}

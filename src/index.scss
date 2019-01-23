@@ -1,10 +1,14 @@
+@font-face {
+  font-family: DanielsFont;
+  src: url("./font/InputMonoCondensed-ExtraLight.ttf") format("TrueType");
+}
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 body {
-  font: 24px Helvetica, Arial;
+  font-family: DanielsFont;
   background: #eaeaea;
 }
 
@@ -40,7 +44,7 @@ form {
     background: rgb(0, 119, 181);
     border: none;
     color: white;
-    font-size: 16px;
+    font-size: 18px;
     margin-right: auto;
     margin-left: auto;
     &:hover {
@@ -85,40 +89,22 @@ form {
   &:hover {
     transform: translateX(-10px) scale(1.1);
   }
-  .right {
-    justify-content: flex-end;
-    padding-left: 30px;
-  }
   .username {
     font-size: 18px;
-    opacity: 0.8;
     text-decoration: underline;
-  }
-  .left {
-    justify-content: flex-start;
-    border-left: 10px solid #da7e90;
-    .username {
-      font-size: 18px;
-      opacity: 0.8;
-      text-decoration: underline;
-      color: #da7e90;
+    font-weight: bold;
+    color: rgb(0, 119, 181);
+    &:hover {
+      cursor: pointer;
     }
   }
+  .message-text {
+    max-width: 30vw;
+    width: fit-content;
+    min-width: 20vw;
+    padding: 1vh;
+  }
   z-index: 1;
-}
-
-// .username {
-//   font-size: 20px;
-//   opacity: 0.8;
-//   text-decoration: underline;
-// }
-
-.message-text {
-  float: left;
-  text-align: left;
-  max-width: 40vw;
-  width: fit-content;
-  min-width: 20vw;
 }
 
 .room-message {
@@ -139,7 +125,6 @@ form {
     background-color: white;
     height: 100%;
     width: 100%;
-
     :nth-child(even) {
       background: white;
     }
@@ -181,6 +166,6 @@ form {
   }
 
   100% {
-    box-shadow: 10px 10px 0 red;
+    box-shadow: 10px 10px 0 dodgerblue;
   }
 }
