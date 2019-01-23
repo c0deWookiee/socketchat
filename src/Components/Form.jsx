@@ -2,7 +2,7 @@ import React from "react";
 
 const Form = props => {
   return (
-    <div>
+    <div className="form-container">
       <form action="">
         <textarea
           placeholder="Type your message here..."
