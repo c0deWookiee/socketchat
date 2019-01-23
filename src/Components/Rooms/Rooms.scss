@@ -1,0 +1,28 @@
+.roomWrapper {
+  position: fixed;
+  z-index: 5;
+  right: 0;
+  top: 0;
+  bottom: 6.3vh;
+  max-height: 80vh;
+  width: 15vw;
+  .roomBox {
+    position: absolute;
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    :nth-child(even) {
+      background: white;
+    }
+    :nth-child(odd) {
+      background: #ccc;
+    }
+  }
+}
+
+.roomList {
+  margin: auto;
+  padding-left: 10px;
+  border-bottom: 2px solid #ccc;
+  align-items: center;
+}

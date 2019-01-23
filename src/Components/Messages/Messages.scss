@@ -3,11 +3,14 @@
   flex-direction: column;
   justify-content: center;
   width: 50vw;
+  max-height: 85vh;
   margin-right: 25vw;
   margin-left: 25vw;
+  overflow: scroll;
   .right-message {
     display: flex;
     justify-content: flex-end;
+    flex-shrink: 0;
   }
   .left-message {
     display: flex;
@@ -18,7 +21,7 @@
 .message {
   position: relative;
   word-wrap: break-word;
-  border-radius: 15px;
+  border-radius: 25px;
   margin: 12px;
   padding: 1vh;
   background-color: white;
