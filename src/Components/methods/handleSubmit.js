@@ -1,18 +1,22 @@
+import newMessageView from "./handleNewMessage.js";
 export default function(e) {
   const { room, username, text } = this.state;
   e.preventDefault();
 
   if (this.state.text) {
     if (!this.state.directMessage) {
-      this.setState(prevState => {
-        let newState = prevState.chatLog;
-        newState.push({
-          username: username,
-          message: text,
-          room: room
-        });
-        return { chatLog: newState };
-      });
+      this.setState(
+        prevState => {
+          let newState = prevState.chatLog;
+          newState.push({
+            username: username,
+            message: text,
+            room: room
+          });
+          return { chatLog: newState };
+        },
+        () => newMessageView("right")
+      );
     } else {
       this.setState(prevState => {
         let newState = prevState.directMessageLog;

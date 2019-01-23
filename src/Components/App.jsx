@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "../index.scss";
 import io from "socket.io-client";
-
+import newMessageView from "./methods/handleNewMessage.js";
 import Form from "./Form.jsx";
 import Rooms from "./rooms/Rooms.jsx";
 import CreateRoom from "./CreateRoom.jsx";
@@ -42,13 +42,16 @@ export default class App extends Component {
 
     //General chat log
     this.socket.on("broadcast", (room, message, id) => {
-      this.setState(prevState => {
-        let newState = prevState.chatLog;
-        message.id = id;
-        newState.push(message);
-        console.log("ID", id);
-        return { chatLog: newState };
-      });
+      this.setState(
+        prevState => {
+          let newState = prevState.chatLog;
+          message.id = id;
+          newState.push(message);
+          console.log("ID", id);
+          return { chatLog: newState };
+        },
+        () => newMessageView("left")
+      );
     });
 
     //DM's
@@ -76,6 +79,12 @@ export default class App extends Component {
       return { username: promptVal };
     });
   }
+
+  scrollIntoView = () => {
+    const newestMessage = document.querySelector(".messages");
+    console.log(newestMessage[newestMessage.length - 1]);
+  };
+
   roomToggle = () => {
     this.setState(prevState => {
       return { roomView: !prevState.roomView };
