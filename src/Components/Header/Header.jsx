@@ -5,10 +5,13 @@ import "./header.scss";
 export default function Header(props) {
   return (
     <div className="header-container">
-      <CreateRoom makeRoom={props.makeRoom} />
-      <button className="showRoom-btn" onClick={e => props.roomToggle(e)}>
-        Show Rooms
-      </button>
+      <h2 className="header-title">&lt;Socket Chat/&gt;</h2>
+      <div className="buttonWrapper">
+        <CreateRoom makeRoom={props.makeRoom} />
+        <button className="showRoom-btn" onClick={e => props.roomToggle(e)}>
+          Show Rooms
+        </button>
+      </div>
     </div>
   );
 }
