@@ -6,6 +6,7 @@
   bottom: 6.3vh;
   max-height: 80vh;
   width: 15vw;
+  overflow: scroll;
   .roomBox {
     position: absolute;
     font-size: 0.2em;
@@ -14,16 +15,21 @@
     width: 100%;
     :nth-child(even) {
       background: white;
+      &:hover {
+        color: #ccc;
+      }
     }
     :nth-child(odd) {
       background: #ccc;
+      &:hover {
+        color: white;
+      }
     }
   }
 }
 
 .roomList {
   margin: auto;
-  padding-left: 10px;
   border-bottom: 2px solid #ccc;
   align-items: center;
   &:hover {
