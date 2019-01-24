@@ -34,7 +34,7 @@
     transform: translateX(-10px) scale(1.1);
   }
   .username {
-    font-size: 18px;
+    font-size: 0.15em;
     text-decoration: underline;
     font-weight: bold;
     color: rgb(0, 119, 181);
@@ -44,6 +44,7 @@
   }
   .message-text {
     max-width: 30vw;
+    font-size: 0.15em;
     width: fit-content;
     min-width: 20vw;
     padding: 1vh;
@@ -53,5 +54,5 @@
 
 .room-message {
   position: relative;
-  font-size: 14px;
+  font-size: 0.1em;
 }

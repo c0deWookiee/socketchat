@@ -11,14 +11,9 @@ export default class CreateRoom extends Component {
 
   render() {
     return (
-      <div>
-        <button
-          className="createRoom-btn"
-          onClick={() => this.props.makeRoom()}
-        >
-          Create Room
-        </button>
-      </div>
+      <button className="createRoom-btn" onClick={() => this.props.makeRoom()}>
+        Create Room
+      </button>
     );
   }
 }

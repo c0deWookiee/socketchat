@@ -8,6 +8,7 @@
   width: 15vw;
   .roomBox {
     position: absolute;
+    font-size: 0.2em;
     background-color: white;
     height: 100%;
     width: 100%;
@@ -25,4 +26,7 @@
   padding-left: 10px;
   border-bottom: 2px solid #ccc;
   align-items: center;
+  &:hover {
+    cursor: pointer;
+  }
 }

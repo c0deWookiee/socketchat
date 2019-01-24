@@ -6,6 +6,7 @@
   background: rgb(0, 119, 181);
   top: 0;
   height: 10vh;
+
   z-index: 2;
 
   .header-title {
@@ -13,7 +14,7 @@
     display: flex;
     align-self: center;
     margin: auto;
-    font-size: 60px;
+    font-size: 0.5em;
     color: white;
   }
 
@@ -25,8 +26,7 @@
     .showRoom-btn {
       grid-column-start: 4;
       grid-column-end: 4;
-      font-size: 18px;
-      height: 5vh;
+      font-size: 0.2em;
       background: white;
       border: none;
       color: rgb(0, 119, 181);
@@ -40,10 +40,10 @@
       }
     }
     .createRoom-btn {
-      font-size: 18px;
+      font-size: inherit;
       grid-column-start: 5;
       grid-column-end: 5;
-      height: 5vh;
+      font-size: 0.2em;
       border: none;
       background: white;
       color: rgb(0, 119, 181);

@@ -123,7 +123,7 @@ export default class App extends Component {
     return this.state.username === null ? (
       <div />
     ) : (
-      <div>
+      <div className="primoContainer">
         <Header
           roomToggle={this.roomToggle}
           roomClick={this.roomClick}
