@@ -72,6 +72,13 @@ export default class App extends Component {
     });
   }
 
+  submitOnEnterPress = e => {
+    if (e.keyCode === 13 && e.shiftKey === false) {
+      e.preventDefault();
+      this.handleSubmit(e);
+    }
+  };
+
   scrollIntoView = () => {
     const newestMessage = document.querySelector(".messages");
     console.log(newestMessage[newestMessage.length - 1]);
@@ -136,6 +143,7 @@ export default class App extends Component {
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
           text={this.state.text}
+          submitOnEnterPress={this.submitOnEnterPress}
         />
       </div>
     );

@@ -10,6 +10,7 @@ const Form = props => {
           autoComplete="off"
           onChange={e => props.handleChange(e)}
           value={props.text}
+          onKeyDown={e => props.submitOnEnterPress(e)}
         />
         <button onClick={e => props.handleSubmit(e)}>Send</button>
       </form>
