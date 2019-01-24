@@ -1,7 +1,6 @@
 .header-container {
   width: 100vw;
-  display: inline-grid;
-  vertical-align: center;
+  display: grid;
   grid-template-columns: 1fr 1fr 3fr 1fr 1fr;
   background: rgb(0, 119, 181);
   top: 0;
@@ -14,7 +13,7 @@
     display: flex;
     align-self: center;
     margin: auto;
-    font-size: 0.5em;
+    font-size: 0.7em;
     color: white;
   }
 

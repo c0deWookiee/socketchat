@@ -6,7 +6,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-size: calc(1em + 1vw);
+  font-size: calc(1em + 1vw); //the culprit.
 }
 
 .primoContainer {
