@@ -1,0 +1,69 @@
+.header-container {
+  width: 100vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr 3fr 1fr 1fr;
+  background: rgb(0, 119, 181);
+  top: 0;
+  height: 10vh;
+
+  z-index: 2;
+
+  .header-title {
+    grid-column-start: 3;
+    display: flex;
+    align-self: center;
+    margin: auto;
+    font-size: 0.7em;
+    color: white;
+  }
+
+  .buttonWrapper {
+    margin-left: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .showRoom-btn {
+      grid-column-start: 4;
+      grid-column-end: 4;
+      font-size: 0.2em;
+      background: white;
+      border: none;
+      color: rgb(0, 119, 181);
+      margin-right: 20px;
+      &:hover {
+        animation: headerButtonOffset 0.2s forwards;
+        cursor: pointer;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+    .createRoom-btn {
+      font-size: inherit;
+      grid-column-start: 5;
+      grid-column-end: 5;
+      font-size: 0.2em;
+      border: none;
+      background: white;
+      color: rgb(0, 119, 181);
+      margin-right: 20px;
+      &:hover {
+        animation: headerButtonOffset 0.2s forwards;
+        cursor: pointer;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
+
+@keyframes headerButtonOffset {
+  0% {
+    box-shadow: 0 0 0 0;
+  }
+
+  100% {
+    box-shadow: 5px 5px 0 #e5e5e5;
+  }
+}

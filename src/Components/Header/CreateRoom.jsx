@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "index.scss";
+import "./header.scss";
 
 export default class CreateRoom extends Component {
   constructor(props) {
@@ -11,9 +11,9 @@ export default class CreateRoom extends Component {
 
   render() {
     return (
-      <div>
-        <button onClick={() => this.props.makeRoom()}>Create Room</button>
-      </div>
+      <button className="createRoom-btn" onClick={() => this.props.makeRoom()}>
+        Create Room
+      </button>
     );
   }
 }

@@ -1,9 +1,12 @@
 .message-log {
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: center;
-  width: 50vw;
-  max-height: 85vh;
+  width: 60vw;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  max-height: 78vh;
   margin-right: 25vw;
   margin-left: 25vw;
   overflow: scroll;
@@ -15,7 +18,41 @@
   .left-message {
     display: flex;
     justify-content: flex-start;
+    flex-shrink: 0;
   }
+}
+
+.other-message {
+  position: relative;
+  word-wrap: break-word;
+  border-radius: 25px;
+  margin: 12px;
+  padding: 1vh;
+  background-color: white;
+  width: fit-content;
+  max-width: 30vw;
+  box-shadow: 1px 1px black, 2px 2px black, 5px 5px black;
+  white-space: pre-wrap;
+  &:hover {
+    transform: translateX(-10px) scale(1.1);
+  }
+  .username {
+    font-size: 0.15em;
+    text-decoration: underline;
+    font-weight: bold;
+    color: rgb(0, 119, 181);
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .message-text {
+    max-width: 30vw;
+    font-size: 0.15em;
+    width: fit-content;
+    min-width: 20vw;
+    padding: 1vh;
+  }
+  z-index: 1;
 }
 
 .message {
@@ -26,14 +63,15 @@
   padding: 1vh;
   background-color: white;
   width: fit-content;
-  max-width: 40vw;
-  box-shadow: 1px 1px black, 2px 2px black, 5px 5px black;
+  max-width: 30vw;
+  box-shadow: 1px 1px rgb(0, 119, 181), 2px 2px rgb(0, 119, 181),
+    5px 5px rgb(0, 119, 181);
   white-space: pre-wrap;
   &:hover {
     transform: translateX(-10px) scale(1.1);
   }
   .username {
-    font-size: 18px;
+    font-size: 0.15em;
     text-decoration: underline;
     font-weight: bold;
     color: rgb(0, 119, 181);
@@ -43,6 +81,7 @@
   }
   .message-text {
     max-width: 30vw;
+    font-size: 0.15em;
     width: fit-content;
     min-width: 20vw;
     padding: 1vh;
@@ -52,5 +91,5 @@
 
 .room-message {
   position: relative;
-  font-size: 14px;
+  font-size: 0.1em;
 }

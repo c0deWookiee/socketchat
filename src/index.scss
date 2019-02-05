@@ -6,6 +6,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-size: calc(1em + 1vw); //the culprit.
+}
+
+.primoContainer {
+  font-size: 1em;
+  top: 0;
 }
 
 body {
@@ -25,12 +31,11 @@ form {
   width: 60vw;
   z-index: 2;
   textarea {
-    // display: flex;
     position: relative;
     border: 0;
     width: 85vw;
     height: 12vh;
-    font-size: 18px;
+    font-size: 0.17em;
     resize: none;
     user-select: none;
     border: rgb(0, 119, 181);
@@ -45,7 +50,7 @@ form {
     background: rgb(0, 119, 181);
     border: none;
     color: white;
-    font-size: 18px;
+    font-size: 0.3em;
     margin-right: auto;
     margin-left: auto;
     &:hover {

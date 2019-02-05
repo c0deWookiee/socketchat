@@ -13,7 +13,9 @@ export default function Messages(props) {
     );
 
   return (
-    <div className="message">
+    <div
+      className={props.username === props.client ? "message" : "other-message"}
+    >
       <div>
         {showUsername}
         <h3 div className="message-text">

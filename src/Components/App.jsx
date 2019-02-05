@@ -4,7 +4,7 @@ import io from "socket.io-client";
 import newMessageView from "./methods/handleNewMessage.js";
 import Form from "./Form.jsx";
 import Rooms from "./rooms/Rooms.jsx";
-import CreateRoom from "./CreateRoom.jsx";
+import CreateRoom from "./Header/CreateRoom.jsx";
 import DirectMessage from "./DirectMessage.jsx";
 import Portal from "./Portal.jsx";
 import handleSubmit from "./methods/handleSubmit.js";
@@ -12,6 +12,7 @@ import makeRoom from "./methods/makeRoom.js";
 import roomClick from "./methods/roomClick.js";
 import MessageEntryList from "./Messages/MessageEntryList.jsx";
 import ChatWindow from "./ChatWindow.jsx";
+import Header from "./Header/Header.jsx";
 
 export default class App extends Component {
   constructor(props) {
@@ -33,11 +34,10 @@ export default class App extends Component {
       directMessage: false,
       socketNum: null
     };
-    // this.messagesEnd = React.createRef();
+
     this.roomClick = roomClick.bind(this);
     this.makeRoom = makeRoom.bind(this);
     this.handleSubmit = handleSubmit.bind(this);
-    // this.scrollToBottom = this.scrollToBottom.bind(this);
     this.socket = io("localhost:8080");
 
     //General chat log
@@ -65,20 +65,19 @@ export default class App extends Component {
     });
   }
 
-  // scrollToBottom = () => {
-  //   window.scrollBy(0, 100);
-  // };
-
-  // componentDidUpdate() {
-  //   this.scrollToBottom();
-  // }
-
   componentDidMount() {
     let promptVal = prompt("what is your name");
     this.setState(prevState => {
       return { username: promptVal };
     });
   }
+
+  submitOnEnterPress = e => {
+    if (e.keyCode === 13 && e.shiftKey === false) {
+      e.preventDefault();
+      this.handleSubmit(e);
+    }
+  };
 
   scrollIntoView = () => {
     const newestMessage = document.querySelector(".messages");
@@ -91,7 +90,6 @@ export default class App extends Component {
     });
   };
   messageUser = id => {
-    // this.socket.emit("dmMessage", `${id}`);
     this.setState(
       prevState => {
         return { directMessage: true, socketNum: id };
@@ -111,7 +109,8 @@ export default class App extends Component {
         <Rooms rooms={this.state.rooms} roomClick={this.roomClick} />
       </Portal>
     ) : (
-      <button onClick={this.roomToggle}>Show Rooms</button>
+      // <button onClick={this.roomToggle}>Show Rooms</button>
+      <div />
     );
 
     const dmView = this.state.directMessage ? (
@@ -124,9 +123,13 @@ export default class App extends Component {
     return this.state.username === null ? (
       <div />
     ) : (
-      <div>
+      <div className="primoContainer">
+        <Header
+          roomToggle={this.roomToggle}
+          roomClick={this.roomClick}
+          makeRoom={this.makeRoom}
+        />
         {roomPortal}
-        {/* <div ref={this.messagesEnd}> */}
         <MessageEntryList
           private={true}
           username={this.state.username}
@@ -135,13 +138,12 @@ export default class App extends Component {
           privateMessage={this.messageUser}
           currRoom={this.state.room}
         />
-        {/* </div> */}
-        <CreateRoom makeRoom={this.makeRoom} />
         {dmView}
         <Form
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
           text={this.state.text}
+          submitOnEnterPress={this.submitOnEnterPress}
         />
       </div>
     );
