@@ -7,6 +7,7 @@
   padding: 0;
   box-sizing: border-box;
   font-size: calc(1em + 1vw); //the culprit.
+  // overflow-x: scroll; //daniel is hiding the ugly ass horizontal scroll bar
 }
 
 .primoContainer {

@@ -9,7 +9,8 @@
   max-height: 78vh;
   margin-right: 25vw;
   margin-left: 25vw;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
   .right-message {
     display: flex;
     justify-content: flex-end;
