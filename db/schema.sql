@@ -1,7 +1,10 @@
+-- real file in tmp folder. this file exists for safe-keeping purposes 
+
 DROP TABLE messages_rooms ;
 DROP TABLE clients ;
 DROP TABLE rooms ;
 DROP TABLE messages ;
+
 
 create table clients (
     client_id serial PRIMARY KEY, 
@@ -30,6 +33,4 @@ create table messages_rooms (
 ,   rooms_id int references rooms (rooms_id) ON UPDATE CASCADE ON DELETE CASCADE
 , CONSTRAINT rooms_messages_pkey PRIMARY KEY (rooms_id, message_id)
 );
-
-
 

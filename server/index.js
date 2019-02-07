@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const parser = require("body-parser");
 const path = require("path");
-
+const pool = require('../db/index.js')
 app.use(parser.json());
 app.use(parser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + "/../build"));
@@ -23,7 +23,11 @@ io.on("connection", socket => {
     //would only submit data to the socket in the previously stated room
     console.log("ROOM", room);
     console.log("message:", data);
+    console.log("POOL", pool);
+    console.log("pool.client", pool.query('select * from clients'));
 
+    pool.query(`INSERT INTO MESSAGES(message_id, username, message, room, date_sent) 
+      VALUES(default, '${data.username}', '${data.message}', '${room}', default);`);
     socket.to(room).emit("broadcast", room, data, socket.id);
 
     socket.on("dmMessage", (id, data) => {
