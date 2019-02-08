@@ -3,6 +3,11 @@ const app = express();
 const parser = require("body-parser");
 const path = require("path");
 const pool = require('../db/index.js')
+const React = require('react')
+const ReactDOM = require('react-dom/server');
+
+        
+
 app.use(parser.json());
 app.use(parser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + "/../build"));
@@ -12,6 +17,7 @@ app.use(express.static(__dirname + "/../build"));
 // });
 
 const Server = require("http").Server(app);
+
 Server.listen(8080, () => console.log("<=====LISTENING ON PORT 8080====>"));
 
 const io = require("socket.io")(Server);
@@ -43,6 +49,8 @@ io.on("connection", socket => {
     if (password) {
       socket.emit("pwCheck", data);
     }
+    pool.query(`INSERT INTO ROOMS(rooms_id, room)
+      VALUES (default, '${room}');`);
     socket.join(room); //https://socket.io/docs/server-api/#socket-handshake
   });
 
@@ -59,3 +67,6 @@ io.on("connection", socket => {
     console.log("===>A USER DISCONNECTED<===");
   });
 });
+
+
+// module.exports = Server;

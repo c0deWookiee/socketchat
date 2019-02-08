@@ -1,10 +1,12 @@
 import React from "react";
 import CreateRoom from "./CreateRoom.jsx";
+import Login from "../Login.jsx";
 import "./header.scss";
 
 export default function Header(props) {
   return (
     <div className="header-container">
+    <button>Login</button>
       <p className="header-title">&lt;Socket Chat/&gt;</p>
       <div className="buttonWrapper">
         <CreateRoom makeRoom={props.makeRoom} />
