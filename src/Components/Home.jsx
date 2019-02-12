@@ -25,7 +25,7 @@ export default class Home extends Component {
       text: "",
       chatLog: [],
       directMessageLog: [],
-      username: null,
+      username: 'daniel',
       rooms: [
         "Lobby",
         "Arena",
@@ -111,7 +111,7 @@ export default class Home extends Component {
   
 
   render() {
-    const HANDLER = PAGES[this.props.pathname];
+    // const HANDLER = PAGES[this.props.pathname];
 
     const roomPortal = this.state.roomView ? (
       <Portal portal="roomPortal">
