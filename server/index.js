@@ -3,8 +3,6 @@ import parser from 'body-parser';
 import path from 'path';
 import pool from '../db/index.js'
 import React from 'react'
-import Login from '../src/Components/Login.jsx';
-import {renderToString, renderToStaticMarkup} from 'react-dom/server'
 import router from './router'
 const app = express();
 
