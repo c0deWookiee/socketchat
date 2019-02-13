@@ -11,7 +11,7 @@ app.use(parser.json());
 app.use(parser.urlencoded({ extended: false }));
 app.use('/',router)
 
-app.use(express.static(__dirname + "/../build"));
+// app.use(express.static(__dirname + "/../build"));
 
 const Server = require("http").Server(app);
 

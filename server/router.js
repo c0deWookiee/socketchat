@@ -10,15 +10,15 @@ import Form from '../src/Components/Form.jsx';
 
 const router = Router();
 
-router.route('/', (req, res) => {
+router.get('/', (req, res) => {
     const content = renderToString(<Home />);
     const html = template(content,'socketchatSSR')
     res.send(html)
 })
 
-router.use('/login', (req, res) => {
+router.get('/login', (req, res) => {
     const content = renderToString(<Login/>)
     const html = template(content, 'formCheck')
-    res.send(content)
+    res.send(html)
 })
 export default router;
